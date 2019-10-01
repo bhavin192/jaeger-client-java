@@ -55,11 +55,12 @@ services:
             - "8080-8082"
 
     java-udp:
-        depends_on:
-            - test_driver
         build: .
         links:
             - "jaeger:jaeger-agent"
+        depends_on:
+            # Udp sender needs to know agent's address
+            - jaeger
         ports:
             - "8080-8082"
         environment:
